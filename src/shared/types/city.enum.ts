@@ -1,8 +1,8 @@
 export enum City {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf'
+  Rome = 'Rome',
+  Vienna = 'Vienna',
+  Prague = 'Prague',
+  Berlin = 'Berlin',
+  Madrid = 'Madrid',
+  Stockholm = 'Stockholm'
 }
