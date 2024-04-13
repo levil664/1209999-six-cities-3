@@ -1,0 +1,149 @@
+{
+  "api": {
+    "titles": [
+      "Загадочная вилла в лесу",
+      "Апартаменты в сердце города",
+      "Уютная квартира в центре",
+      "Модная студия с видом на канал",
+      "Дворец для большой семьи",
+      "Студенческий отель с бассейном"
+    ],
+    "descriptions": [
+      "Таинственная вилла, окруженная лесом, создает атмосферу загадки и приключений. Отличный выбор для любителей природы и уединения.",
+      "Светлая и просторная квартира в историческом центре города. Рядом с главными достопримечательностями и транспортом.",
+      "Просторный дом с большим двором, идеально подходит для больших семей или группы друзей. В доме есть все удобства для комфортного проживания.",
+      "Современная студия с дизайнерским ремонтом и потрясающим видом на канал. Расположенная в центре города, рядом с магазинами и кафе.",
+      "Комфортабельная квартира с панорамными окнами и историческим видом на центр города. Отличное местоположение рядом с транспортом и ресторанами.",
+      "Современный отель для студентов с бассейном и спортивным залом. Идеальное место для молодежного отдыха с друзьями."
+    ],
+    "postDates": [
+      "2024-03-15T08:23:40.223Z",
+      "2024-02-20T08:11:40.113Z",
+      "2024-03-28T08:15:40.903Z",
+      "2024-01-30T08:12:40.203Z",
+      "2024-01-01T08:23:40.183Z",
+      "2024-02-25T08:11:40.903Z"
+    ],
+    "cities": [
+      "Rome",
+      "Vienna",
+      "Prague",
+      "Berlin",
+      "Madrid",
+      "Stockholm"
+    ],
+    "previewPhotos": [
+      "prev-photo-r.jpg",
+      "prev-photo-v.jpg",
+      "prev-photo-p.jpg",
+      "prev-photo-b.jpg",
+      "prev-photo-m.jpg",
+      "prev-photo-s.jpg"
+    ],
+    "photos": [
+      "photo-1.jpg",
+      "photo-2.jpg",
+      "photo-3.jpg",
+      "photo-4.jpg",
+      "photo-5.jpg"
+    ],
+    "isPremiums": [
+      false,
+      true
+    ],
+    "isFavorites": [
+      false,
+      true
+    ],
+    "ratings": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "types": [
+      "apartament",
+      "house",
+      "room",
+      "hotel"
+    ],
+    "roomCounts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "guestsCounts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "prices": [
+      1200,
+      2000,
+      3100,
+      5000,
+      6300,
+      7000,
+      8500,
+      12000,
+      105000
+    ],
+    "facilities": [
+      "Breakfast",
+      "Wi-Fi",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge",
+      "Balcony",
+      "Free parking"
+    ],
+    "authorNames": [
+      "Olivia",
+      "John",
+      "Emma",
+      "Michael",
+      "William",
+      "Sophia"
+    ],
+    "authorEmails": [
+      "olivia@example.com",
+      "john@example.com",
+      "emma@example.com",
+      "michael@example.com",
+      "william@example.com",
+      "sophia@example.com"
+    ],
+    "authorAvatars": [
+      "olivia-avatar.jpg",
+      "john-avatar.jpg",
+      "emma-avatar.jpg",
+      "michael-avatar.jpg",
+      "william-avatar.jpg",
+      "sophia-avatar.jpg"
+    ],
+    "coordinates": [
+      "latitude: 41.902782, longitude: 12.496366",
+      "latitude: 52.520008, longitude: 13.404954",
+      "latitude: 48.208174, longitude: 11.123131",
+      "latitude: 40.416775, longitude: -3.703790",
+      "latitude: 53.550341, longitude: 10.000654",
+      "latitude: 51.225402, longitude: 6.776314"
+    ]
+  }
+}

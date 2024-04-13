@@ -1,26 +1,33 @@
 import { Command } from './command.interface.js';
-import { TSVFileReader } from '../../shared/libs/file-reader';
+import { createReadStream } from 'fs';
+import { createInterface } from 'readline';
+import { createOffer, getErrorMessage } from '../../shared/helpers/index.js';
 
 export class ImportCommand implements Command {
   public getName(): string {
     return '--import';
   }
 
-  public execute(...parameters: string[]): void {
+  public async execute(...parameters: string[]): Promise<void> {
     const [filename] = parameters;
-    const fileReader = new TSVFileReader(filename.trim());
+    const inputStream = createReadStream(filename.trim(), { encoding: 'utf8' });
+    const lineReader = createInterface({ input: inputStream });
 
-    try {
-      fileReader.read();
-      console.log(fileReader.toArray());
-    } catch (err) {
-      if (!(err instanceof Error)) {
-        throw err;
-      }
+    let count = 0;
 
+    lineReader.on('line', (line) => {
+      const offer = createOffer(line);
+      console.info(offer);
+      count++;
+    });
+
+    lineReader.on('close', () => {
+      console.info(`${count} rows imported.`);
+    });
+
+    lineReader.on('error', (error) => {
       console.error(`Can't import data from file: ${filename}`);
-      console.error(`Details: ${err.message}`);
-      console.log(err);
-    }
+      console.error(getErrorMessage(error));
+    });
   }
 }
