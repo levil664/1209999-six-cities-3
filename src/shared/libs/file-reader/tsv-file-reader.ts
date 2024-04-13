@@ -1,38 +1,36 @@
+import EventEmitter from 'node:events';
+import { createReadStream } from 'node:fs';
 import { FileReader } from './file-reader.interface.js';
-import { readFileSync } from 'node:fs';
-import { Offer, User, Category, categoryTitle } from '../../types';
 
-export class TSVFileReader implements FileReader {
-  private rawData = '';
+const CHUNK_SIZE = 16384;
 
-  constructor(
-    private readonly filename: string
-  ) {}
-
-  public read(): void {
-    this.rawData = readFileSync(this.filename, { encoding: 'utf-8' });
+export class TSVFileReader extends EventEmitter implements FileReader {
+  constructor(private readonly filename: string) {
+    super();
   }
 
-  public toArray(): Offer[] {
-    if (!this.rawData) {
-      throw new Error('File was not read');
+  public async read(): Promise<void> {
+    const readStream = createReadStream(this.filename, {
+      highWaterMark: CHUNK_SIZE,
+      encoding: 'utf-8',
+    });
+
+    let remainingData = '';
+    let nextLinePosition = -1;
+    let importedRowCount = 0;
+
+    for await (const chunk of readStream) {
+      remainingData += chunk.toString();
+
+      while ((nextLinePosition = remainingData.indexOf('\n')) >= 0) {
+        const completeRow = remainingData.slice(0, nextLinePosition + 1);
+        remainingData = remainingData.slice(++nextLinePosition);
+        importedRowCount++;
+
+        this.emit('line', completeRow);
+      }
     }
 
-    return this.rawData
-      .split('\n')
-      .filter((row) => row.trim().length > 0)
-      .map((line) => line.split('\t'))
-      .map(([title, description, postDate, previewPhoto, photos, type, price, name, lastName, email, avatar, password, categoryTitle, photo, countAdvertisement]) => ({
-        title,
-        description,
-        postDate: new Date(postDate),
-        previewPhoto,
-        photos: photos ? photos.split(';').map((url) => url.trim()) : [],
-        type: type as 'Куплю' | 'Продам',
-        commentCount: 0,
-        price: parseInt(price, 10),
-        author: { name, lastName, email, avatar, password } as User,
-        category: [{ title: categoryTitle as categoryTitle, photo, countAdvertisement: parseInt(countAdvertisement, 10) }] as Category[],
-      }));
+    this.emit('end', importedRowCount);
   }
 }
