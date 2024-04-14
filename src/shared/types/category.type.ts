@@ -1,4 +1,4 @@
-import { categoryTitle } from "./categoryTitle.enum";
+import { categoryTitle } from './categoryTitle.enum';
 
 export type Category = {
   title: categoryTitle,
