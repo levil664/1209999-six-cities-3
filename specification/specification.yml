@@ -349,8 +349,8 @@ components:
           type: string[]
           example: [Laptop friendly workspace, Fridge]
         author:
-          type: string
-          example: 682146711-c28d-4121-82cd-e0b462a27f00
+          type: object
+          $ref: '#/components/schemas/user'
         coordinates:
           type: object
           properties:
@@ -422,16 +422,20 @@ components:
           type: string[]
           example: [Laptop friendly workspace, Fridge]
         author:
-          type: string
-          example: 682146711-c28d-4121-82cd-e0b462a27f00
+          type: object
+          $ref: '#/components/schemas/user'
         coordinates:
           type: object
           properties:
-          example:
-            {
-            latitude: 41.902782,
-            longitude: 12.496366
-          }
+            latitude:
+              type: string
+              example: '48.85661'
+            longitude:
+              type: string
+              example: '2.351499'
+        offerId:
+          type: string
+          example: a41270341620783absyd12
 
     comment:
       type: object
@@ -446,9 +450,8 @@ components:
           type: number
           example: 5
         author:
-          type: string
-          example: 682146711-c28d-4121-82cd-e0b462a27f00
-          
+          type: object
+          $ref: '#/components/schemas/user'
 
     commentsList:
       type: object
