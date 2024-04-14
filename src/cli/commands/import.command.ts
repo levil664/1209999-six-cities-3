@@ -1,6 +1,6 @@
 import { Command } from './command.interface.js';
-import { createReadStream } from 'fs';
-import { createInterface } from 'readline';
+import { createReadStream } from 'node:fs';
+import { createInterface } from 'node:readline';
 import { createOffer, getErrorMessage } from '../../shared/helpers/index.js';
 
 export class ImportCommand implements Command {

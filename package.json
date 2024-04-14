@@ -13,6 +13,7 @@
     "mock:server": "json-server ./mocks/mock-server-data.json --port 3123",
     "build": "npm run clean && npm run compile",
     "lint": "eslint src/ --ext .ts",
+    "lint:fix": "eslint src/ --ext .ts --fix",
     "compile": "tsc -p tsconfig.json",
     "clean": "rimraf dist",
     "ts": "ts-node"
