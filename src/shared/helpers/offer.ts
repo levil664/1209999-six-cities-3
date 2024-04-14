@@ -1,4 +1,4 @@
-import { Offer, City, HouseType, Facilities, User, Coordinates } from '../types/index.js';
+import { Offer, City, HouseType, Facilities, User, Coordinates } from '../types';
 
 
 export function createOffer(offerData: string): Offer {
