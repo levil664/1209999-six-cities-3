@@ -5,7 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto.js';
 import { inject, injectable } from 'inversify';
 import { Component } from '../../types';
 import { Logger } from '../../libs/logger';
-import { UpdateUserDto } from "./dto/update-user.dto";
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @injectable()
 export class DefaultUserService implements UserService {
@@ -40,7 +40,7 @@ export class DefaultUserService implements UserService {
 
   updateById(userId: string, dto: UpdateUserDto): Promise<DocumentType<UserEntity> | null> {
     return this.userModel
-        .findByIdAndUpdate(userId, dto, { new: true })
-        .exec();
+      .findByIdAndUpdate(userId, dto, { new: true })
+      .exec();
   }
 }

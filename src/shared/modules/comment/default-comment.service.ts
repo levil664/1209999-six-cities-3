@@ -8,30 +8,30 @@ import { Logger } from '../../libs/logger/';
 
 @injectable()
 export class DefaultCommentService implements CommentService {
-    constructor(
+  constructor(
         @inject(Component.Logger) private readonly logger: Logger,
         @inject(Component.CommentModel) private readonly commentModel: types.ModelType<CommentEntity>,
-    ) { }
+  ) { }
 
-    public async create(dto: CreateCommentDto): Promise<DocumentType<CommentEntity>> {
-        const result = await this.commentModel.create(dto);
+  public async create(dto: CreateCommentDto): Promise<DocumentType<CommentEntity>> {
+    const result = await this.commentModel.create(dto);
 
-        this.logger.info(`New comment created: ${result.description.slice(0, 15)}...`);
+    this.logger.info(`New comment created: ${result.description.slice(0, 15)}...`);
 
-        return result;
-    }
+    return result;
+  }
 
-    public async findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[]> {
-        return this.commentModel
-            .find({ offerId })
-            .populate('userId');
-    }
+  public async findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[]> {
+    return this.commentModel
+      .find({ offerId })
+      .populate('userId');
+  }
 
-    public async deleteByOfferId(offerId: string): Promise<number> {
-        const result = await this.commentModel
-            .deleteMany({ offerId })
-            .exec();
+  public async deleteByOfferId(offerId: string): Promise<number> {
+    const result = await this.commentModel
+      .deleteMany({ offerId })
+      .exec();
 
-        return result.deletedCount;
-    }
+    return result.deletedCount;
+  }
 }

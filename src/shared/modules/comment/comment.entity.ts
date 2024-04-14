@@ -6,27 +6,27 @@ import { OfferEntity } from '../offer';
 export interface CommentEntity extends defaultClasses.Base { }
 
 @modelOptions({
-    schemaOptions: {
-        collection: 'comments',
-    }
+  schemaOptions: {
+    collection: 'comments',
+  }
 })
 
 export class CommentEntity extends defaultClasses.TimeStamps {
     @prop({
-        required: true,
-        ref: UserEntity
+      required: true,
+      ref: UserEntity
     })
-    public authorId!: Ref<UserEntity>;
+  public authorId!: Ref<UserEntity>;
 
     @prop({
-        ref: OfferEntity,
-        required: true
+      ref: OfferEntity,
+      required: true
     })
     public offerId!: Ref<OfferEntity>;
 
     @prop({
-        required: true,
-        trim: true
+      required: true,
+      trim: true
     })
     public description!: string;
 
