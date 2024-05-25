@@ -5,7 +5,7 @@ import { Component } from './shared/types';
 import { createRestApplicationContainer } from './rest/rest.container.js';
 import { createUserContainer } from './shared/modules/user';
 import { createOfferContainer } from './shared/modules/offer';
-import {createCommentContainer} from './shared/modules/comment';
+import { createCommentContainer } from './shared/modules/comment';
 
 
 async function bootstrap() {

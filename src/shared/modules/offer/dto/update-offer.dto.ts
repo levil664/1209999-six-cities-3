@@ -1,20 +1,22 @@
-import { HouseType, City, Facilities, Coordinates } from '../../../types';
+import { HouseType, City, Coordinates } from '../../../types';
+import { Facilities } from '../../../types/facilities.enum';
 
 export class UpdateOfferDto {
-  public title: string;
+  public name: string;
   public description: string;
-  public postDate: Date;
+  public datePublished: Date;
   public city: City;
-  public previewPhoto: string;
-  public photos: string[];
+  public previewImagePath: string;
+  public photosPaths: string[];
   public isPremium: boolean;
   public isFavorite: boolean;
   public rating: number;
-  public type: HouseType;
-  public roomCount: number;
-  public guestsCount: number;
-  public price: number;
+  public houseType: HouseType;
+  public numberRooms: number;
+  public numberGuests: number;
+  public rentPrice: number;
   public facilities: Facilities[];
+  public userId: string;
+  public numberComments: number;
   public coordinates: Coordinates;
-  public authorId: string;
 }

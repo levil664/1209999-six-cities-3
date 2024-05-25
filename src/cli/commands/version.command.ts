@@ -1,13 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { Command } from './command.interface.js';
+import { Command } from './command.interface';
 
 
-type isPackageJSONConfig = {
-    version: string;
+type TPackageJSONConfig = {
+  version: string;
 }
 
-function isPackageJSONConfig(value: unknown): value is isPackageJSONConfig {
+function isPackageJSONConfig(value: unknown): value is TPackageJSONConfig {
   return (
     typeof value === 'object' &&
     value !== null &&
@@ -42,8 +42,7 @@ export class VersionCommand implements Command {
       const version = this.readVersion();
       console.info(version);
     } catch (error: unknown) {
-      console.error(`Failded to read version from ${this.filePath}`);
-
+      console.error(`Failed to read version from ${this.filePath}`);
       if (error instanceof Error) {
         console.error(error.message);
       }

@@ -1,14 +1,19 @@
 import { Command } from './command.interface.js';
 import { TSVFileReader } from '../../shared/libs/file-reader';
-import { createOffer, getErrorMessage, getMongoURI } from '../../shared/helpers';
 import { UserService } from '../../shared/modules/user/user-service.interface.js';
-import { DefaultOfferService, OfferModel, OfferService } from '../../shared/modules/offer';
-import { DatabaseClient, MongoDatabaseClient } from '../../shared/libs/database-client';
+import { OfferService } from '../../shared/modules/offer';
+import { DatabaseClient } from '../../shared/libs/database-client';
 import { Logger } from '../../shared/libs/logger';
 import { ConsoleLogger } from '../../shared/libs/logger/console.logger.js';
-import { DefaultUserService, UserModel } from '../../shared/modules/user';
-import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constant.js';
+import { DefaultOfferService } from '../../shared/modules/offer';
+import { DefaultUserService } from '../../shared/modules/user';
+import { MongoDatabaseClient } from '../../shared/libs/database-client';
 import { Offer } from '../../shared/types';
+import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constant.js';
+import { OfferModel } from '../../shared/modules/offer';
+import { UserModel } from '../../shared/modules/user';
+import { getErrorMessage, getMongoURI } from '../../shared/helpers';
+import { createOffer } from '../../shared/helpers/offer.js';
 
 
 export class ImportCommand implements Command {
@@ -47,7 +52,7 @@ export class ImportCommand implements Command {
       }, this.salt);
 
       const offerData = {
-        authorId: user.id,
+        userId: user.id,
         ...offer,
       };
 
@@ -56,7 +61,6 @@ export class ImportCommand implements Command {
       console.error('Error saving offer:', getErrorMessage(error));
     }
   }
-
 
   public getName(): string {
     return '--import';

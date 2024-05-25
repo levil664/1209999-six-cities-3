@@ -1,7 +1,9 @@
-import { HouseType, City, Facilities, Coordinates } from '../../../types';
+import { Facilities } from '../../../types/facilities.enum.js';
+import { HouseType, City, Coordinates } from '../../../types';
+
 
 export class CreateOfferDto {
-  public title: string;
+  public name: string;
   public description: string;
   public postDate: Date;
   public city: City;
@@ -15,6 +17,7 @@ export class CreateOfferDto {
   public guestsCount: number;
   public price: number;
   public facilities: Facilities[];
+  public userId: string;
+  public numberComments: number;
   public coordinates: Coordinates;
-  public authorId: string;
 }
