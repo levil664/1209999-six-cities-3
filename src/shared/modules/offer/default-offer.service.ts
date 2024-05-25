@@ -6,7 +6,7 @@ import { OfferEntity } from './offer.entity.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { Component } from '../../types';
 import { SortType } from '../../types';
-import { DEFAULT_OFFER_COUNT } from './offer.constant.js';
+import { DEFAULT_OFFER_COUNT, PREMIUM_OFFER_COUNT } from './offer.constant.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 
 
@@ -48,14 +48,6 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
-  public async findByCategoryId(categoryId: string, count?: number): Promise<DocumentType<OfferEntity>[]> {
-    const limit = count ?? DEFAULT_OFFER_COUNT;
-    return this.offerModel
-      .find({ categories: categoryId }, {}, { limit })
-      .populate(['userId'])
-      .exec();
-  }
-
   public async exists(documentId: string): Promise<boolean> {
     return (await this.offerModel
       .exists({ _id: documentId })) !== null;
@@ -70,37 +62,58 @@ export class DefaultOfferService implements OfferService {
       }).exec();
   }
 
-  public async findNew(count: number): Promise<DocumentType<OfferEntity>[]> {
+  public async findByCityAndPremium(city: string, isPremium: boolean, count?: number, offset?: number): Promise<DocumentType<OfferEntity>[] | null> {
+    const limit = count ?? PREMIUM_OFFER_COUNT;
+    const skip = offset ?? 0;
     return this.offerModel
-      .find()
+      .find({ city: city, isPremium: isPremium })
       .sort({ createdAt: SortType.Down })
-      .limit(count)
-      .populate(['userId'])
+      .skip(skip)
+      .limit(limit)
+      .populate('userId')
       .exec();
   }
 
-  public async findDiscussed(count: number): Promise<DocumentType<OfferEntity>[]> {
+  public async findByFavorite(isFavorite: boolean, count?: number, offset?: number): Promise<DocumentType<OfferEntity>[] | null> {
+    const limit = count ?? DEFAULT_OFFER_COUNT;
+    const skip = offset ?? 0;
     return this.offerModel
-      .find()
-      .sort({ commentCount: SortType.Down })
-      .limit(count)
-      .populate(['userId'])
+      .find({ isFavorite: isFavorite })
+      .skip(skip)
+      .limit(limit)
+      .populate('userId')
       .exec();
   }
 
-  public async calculateTotalRating(id: string, newRating: number, newCommentsCount: number): Promise<DocumentType<OfferEntity> | null> {
-    const offer = await this.offerModel.findById(id).exec();
-
-    if (!offer) {
-      return null;
-    }
-
-    const totalRating = (offer.rating * (newCommentsCount - 1) + newRating) / newCommentsCount;
+  public async addToFavorite(id: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
-      .findByIdAndUpdate(id, {
-        rating: totalRating
-      })
-      .populate(['host'])
+      .findByIdAndUpdate(id, {isFavorite: true}, {new: true})
+      .exec();
+  }
+
+  public async removeFromFavorite(id: string): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel
+      .findByIdAndUpdate(id, {isFavorite: false}, {new: true})
+      .exec();
+  }
+
+  public async updateOfferRating(id: string): Promise<DocumentType<OfferEntity | null> | null> {
+    const rating = await this.offerModel
+      .aggregate([
+        {
+          $lookup: {
+            from: 'comments',
+            pipeline: [
+              {$match: {offerId: id}}, {$project: {rating: 1}},
+              {$group: {_id: null, avg: {'$avg': '$rating'}}}
+            ], as: 'avg'
+          },
+        },
+      ]).exec();
+
+    return this.offerModel
+      .findByIdAndUpdate(id, {rating: rating[0]}, {new: true})
+      .populate('userId')
       .exec();
   }
 }
