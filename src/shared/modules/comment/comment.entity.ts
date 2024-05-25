@@ -12,26 +12,26 @@ export interface CommentEntity extends defaultClasses.Base { }
 })
 
 export class CommentEntity extends defaultClasses.TimeStamps {
-    @prop({
-      required: true,
-      ref: UserEntity
-    })
-  public authorId!: Ref<UserEntity>;
+  @prop({ trim: true, required: true, type: () => String,})
+  public description: string;
 
-    @prop({
-      ref: OfferEntity,
-      required: true
-    })
-    public offerId!: Ref<OfferEntity>;
+  @prop({
+    ref: OfferEntity,
+    required: true
+  })
+  public offerId: Ref<OfferEntity>;
 
-    @prop({
-      required: true,
-      trim: true
-    })
-    public description!: string;
+  @prop({
+    required: true,
+    type: () => Date,
+  })
+  public postDate: Date;
 
-    @prop({ required: true })
-    public rating!: number;
+  @prop({
+    ref: UserEntity,
+    required: true,
+  })
+  public authorId: Ref<UserEntity>;
 }
 
 export const CommentModel = getModelForClass(CommentEntity);

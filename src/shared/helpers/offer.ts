@@ -1,50 +1,69 @@
-import { Offer, City, HouseType, Facilities, User, Coordinates } from '../types';
+import { City, HouseType, Offer, User, UserType } from '../types';
+import { Facilities } from '../types/facilities.enum';
 
 
 export function createOffer(offerData: string): Offer {
+  const offer: string[] = [];
+  let currentData: string[] = [];
+
+  for (const char of offerData) {
+    if (char === '\t' || char === '\n') {
+      offer.push(currentData.join(''));
+      currentData = [];
+    } else {
+      currentData.push(char);
+    }
+
+    if (char === '\n') {
+      break;
+    }
+  }
+
   const [
-    title,
+    name,
     description,
-    postDate,
+    datePublished,
     city,
-    previewPhoto,
-    photos,
+    previewImagePath,
+    photosPaths,
     isPremium,
     isFavorite,
     rating,
-    type,
-    roomCount,
-    guestsCount,
-    price,
+    houseType,
+    numberRooms,
+    numberGuests,
+    rentPrice,
     facilities,
-    name,
-    email,
+    authorName,
+    authorEmail,
     avatarPath,
+    type,
+    numberComments,
     coordinates
-  ] = offerData.replace('\n', '').split('\t');
-
-  const user: User = {
-    name,
-    email,
-    avatarPath
-  };
+  ] = offer;
 
   return {
-    title,
+    name,
     description,
-    postDate: new Date(postDate),
+    datePublished: new Date(datePublished),
     city: city as City,
-    previewPhoto,
-    photos: photos ? photos.split(';').map((url) => url.trim()) : [],
+    previewImagePath,
+    photosPaths: photosPaths.split(';'),
     isPremium: isPremium === 'true',
     isFavorite: isFavorite === 'true',
-    rating: parseInt(rating, 10),
-    type: type as HouseType,
-    roomCount: parseInt(roomCount, 10),
-    guestsCount: parseInt(guestsCount, 10),
-    price: Number.parseInt(price, 10),
-    facilities: facilities ? facilities.split(';').map((facility) => facility.trim()) as Facilities[] : [],
-    author: user,
-    coordinates: coordinates as Coordinates,
-  };
+    rating: parseFloat(rating),
+    houseType: houseType as HouseType,
+    numberRooms: parseInt(numberRooms, 10),
+    numberGuests: parseInt(numberGuests, 10),
+    rentPrice: parseInt(rentPrice, 10),
+    facilities: facilities.split(';').map((facility) => facility as Facilities),
+    author: {
+      name: authorName,
+      email: authorEmail,
+      avatarPath: avatarPath,
+      type: type as UserType
+    } as unknown as User,
+    numberComments: parseInt(numberComments, 10),
+    coordinates
+  } as Offer;
 }
