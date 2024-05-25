@@ -76,6 +76,6 @@ export class RestApplication {
 
     this.logger.info('Init server');
     await this._initServer();
-    this.logger.info(`Server started`);
+    this.logger.info('Server started');
   }
 }
