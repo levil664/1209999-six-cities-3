@@ -8,6 +8,7 @@ import express, { Express } from 'express';
 import { OfferController } from '../shared/modules/offer/offer.controller';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/exception-filter.interface';
 import { Controller } from '../shared/libs/rest/controller/controller.interface';
+import CommentController from '../shared/modules/comment/comment.controller';
 
 
 @injectable()
@@ -21,6 +22,7 @@ export class RestApplication {
     @inject(Component.OfferController) private readonly offerController: OfferController,
     @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter,
     @inject(Component.UserController) private readonly userController: Controller,
+    @inject(Component.CommentController) private readonly commentController: CommentController,
   ) {
     this.server = express();
   }
@@ -45,6 +47,7 @@ export class RestApplication {
   private async _initControllers() {
     this.server.use('/users', this.userController.router);
     this.server.use('/offers', this.offerController.router);
+    this.server.use('/offers', this.commentController.router);
   }
 
   private async _initMiddleware() {
