@@ -66,8 +66,8 @@ export class ImportCommand implements Command {
     return '--import';
   }
 
-  public async execute(filename: string, login: string, password: string, host: string, dbname: string, salt: string): Promise<void> {
-    const uri = getMongoURI(login, password, host, DEFAULT_DB_PORT, dbname);
+  public async execute(filename: string, host: string, dbname: string, salt: string): Promise<void> {
+    const uri = getMongoURI(host, DEFAULT_DB_PORT, dbname);
     this.salt = salt;
 
     await this.databaseClient.connect(uri);
