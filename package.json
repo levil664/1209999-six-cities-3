@@ -10,7 +10,6 @@
   "main": "main.js",
   "scripts": {
     "start": "npm run build && node ./dist/main.rest.js",
-    "start:nodemon": "nodemon",
     "start:dev": "npm run ts ./src/main.rest.ts | pino-pretty --colorize --translateTime SYS:standards",
     "mock:server": "json-server ./mocks/mock-server-data.json --port 3123",
     "build": "npm run clean && npm run compile",
