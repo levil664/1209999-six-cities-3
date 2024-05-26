@@ -6,6 +6,7 @@ import { createRestApplicationContainer } from './rest/rest.container.js';
 import { createUserContainer } from './shared/modules/user';
 import { createOfferContainer } from './shared/modules/offer';
 import { createCommentContainer } from './shared/modules/comment';
+import { createAuthContainer } from './shared/modules/auth/auth.container';
 
 
 async function bootstrap() {
@@ -13,7 +14,8 @@ async function bootstrap() {
     createRestApplicationContainer(),
     createUserContainer(),
     createOfferContainer(),
-    createCommentContainer()
+    createCommentContainer(),
+    createAuthContainer(),
   );
 
   const application = appContainer.get<RestApplication>(Component.RestApplication);
