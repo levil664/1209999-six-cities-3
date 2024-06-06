@@ -1,6 +1,6 @@
 import got from 'got';
 import { TSVOfferGenerator } from '../../shared/libs/offer-generator';
-import { MockServerData } from '../../shared/types';
+import { MockServerData } from '../../shared/types/index.js';
 import { Command } from './command.interface.js';
 import { TSVFileWriter } from '../../shared/libs/file-writer';
 

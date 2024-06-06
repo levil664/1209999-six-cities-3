@@ -1,9 +1,9 @@
 import { Container } from 'inversify';
 import { RestApplication } from './rest.application.js';
-import { Component } from '../shared/types';
-import { Logger, PinoLogger } from '../shared/libs/logger';
-import { Config, RestConfig, RestSchema } from '../shared/libs/config';
-import { DatabaseClient, MongoDatabaseClient } from '../shared/libs/database-client';
+import { Component } from '../shared/types/index.js';
+import { Logger, PinoLogger } from '../shared/libs/logger/index.js';
+import { Config, RestConfig, RestSchema } from '../shared/libs/config/index.js';
+import { DatabaseClient, MongoDatabaseClient } from '../shared/libs/database-client/index.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/exception-filter.interface.js';
 import { AppExceptionFilter } from '../shared/libs/rest/exception-filter/app-exception-filter.js';
 

@@ -1,9 +1,9 @@
 import { Expose } from 'class-transformer';
-import { Coordinates } from '../../../types';
-import { City } from '../../../types';
-import { HouseType } from '../../../types';
-import { Facilities } from '../../../types/facilities.enum';
-import { UserEntity } from '../../user';
+import { Coordinates } from '../../../types/index.js';
+import { City } from '../../../types/index.js';
+import { HouseType } from '../../../types/index.js';
+import { Facilities } from '../../../types/facilities.enum.js';
+import { UserEntity } from '../../user/index.js';
 import { Ref } from '@typegoose/typegoose';
 
 

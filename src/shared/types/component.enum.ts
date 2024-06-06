@@ -1,6 +1,6 @@
 export const Component = {
   RestApplication: Symbol.for('RestApplication'),
-  Logger: Symbol.for('Logger'),
+  Logger: Symbol.for('logger/index.js'),
   Config: Symbol.for('Config'),
   DatabaseClient: Symbol.for('DatabaseClient'),
   UserService: Symbol.for('UserService'),

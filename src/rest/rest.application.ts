@@ -1,15 +1,15 @@
 import { inject, injectable } from 'inversify';
-import { Config, RestSchema } from '../shared/libs/config';
-import { Logger } from '../shared/libs/logger';
-import { Component } from '../shared/types';
-import { DatabaseClient } from '../shared/libs/database-client';
-import { getMongoURI } from '../shared/helpers';
+import { Config, RestSchema } from '../shared/libs/config/index.js';
+import { Logger } from '../shared/libs/logger/index.js';
+import { Component } from '../shared/types/index.js';
+import { DatabaseClient } from '../shared/libs/database-client/index.js';
+import { getMongoURI } from '../shared/helpers/index.js';
 import express, { Express } from 'express';
-import { OfferController } from '../shared/modules/offer/offer.controller';
+import { OfferController } from '../shared/modules/offer/offer.controller.js';
 import { ExceptionFilter } from '../shared/libs/rest/exception-filter/exception-filter.interface';
 import { Controller } from '../shared/libs/rest/controller/controller.interface';
-import CommentController from '../shared/modules/comment/comment.controller';
-import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/parse-token.middleware';
+import CommentController from '../shared/modules/comment/comment.controller.js';
+import { ParseTokenMiddleware } from '../shared/libs/rest/middleware/parse-token.middleware.js';
 
 
 @injectable()

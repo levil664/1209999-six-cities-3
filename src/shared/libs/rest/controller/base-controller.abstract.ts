@@ -1,6 +1,6 @@
 import type { Controller } from './controller.interface.js';
 import type { Route } from '../types/route.interface.js';
-import type { Logger } from '../../logger';
+import type { Logger } from '../../logger/index.js';
 import { injectable } from 'inversify';
 import { Router, type Response } from 'express';
 import { StatusCodes } from 'http-status-codes';

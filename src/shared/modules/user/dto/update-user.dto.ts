@@ -1,6 +1,6 @@
 import { IsEmail, IsEnum, IsString, Length } from 'class-validator';
-import { UserType } from '../../../types';
-import { CreateUserMessages } from './create-user.messages';
+import { UserType } from '../../../types/index.js';
+import { CreateUserMessages } from './create-user.messages.js';
 
 
 export class UpdateUserDto {

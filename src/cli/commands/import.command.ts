@@ -1,18 +1,18 @@
 import { Command } from './command.interface.js';
 import { TSVFileReader } from '../../shared/libs/file-reader';
 import { UserService } from '../../shared/modules/user/user-service.interface.js';
-import { OfferService } from '../../shared/modules/offer';
-import { DatabaseClient } from '../../shared/libs/database-client';
-import { Logger } from '../../shared/libs/logger';
+import { OfferService } from '../../shared/modules/offer/index.js';
+import { DatabaseClient } from '../../shared/libs/database-client/index.js';
+import { Logger } from '../../shared/libs/logger/index.js';
 import { ConsoleLogger } from '../../shared/libs/logger/console.logger.js';
-import { DefaultOfferService } from '../../shared/modules/offer';
-import { DefaultUserService } from '../../shared/modules/user';
-import { MongoDatabaseClient } from '../../shared/libs/database-client';
-import { Offer } from '../../shared/types';
+import { DefaultOfferService } from '../../shared/modules/offer/index.js';
+import { DefaultUserService } from '../../shared/modules/user/index.js';
+import { MongoDatabaseClient } from '../../shared/libs/database-client/index.js';
+import { Offer } from '../../shared/types/index.js';
 import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constant.js';
-import { OfferModel } from '../../shared/modules/offer';
-import { UserModel } from '../../shared/modules/user';
-import { getErrorMessage, getMongoURI } from '../../shared/helpers';
+import { OfferModel } from '../../shared/modules/offer/index.js';
+import { UserModel } from '../../shared/modules/user/index.js';
+import { getErrorMessage, getMongoURI } from '../../shared/helpers/index.js';
 import { createOffer } from '../../shared/helpers/offer.js';
 
 

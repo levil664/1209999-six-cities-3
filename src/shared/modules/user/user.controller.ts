@@ -1,13 +1,13 @@
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { Logger } from '../../libs/logger';
-import { Component } from '../../types';
+import { Logger } from '../../libs/logger/index.js';
+import { Component } from '../../types/index.js';
 import { BaseController } from '../../libs/rest/controller/base-controller.abstract.js';
 import { HttpMethod } from '../../libs/rest/types/http-method.enum.js';
 import { CreateUserRequest } from './create-user-request.type.js';
-import { fillDTO } from '../../helpers';
+import { fillDTO } from '../../helpers/index.js';
 import { UserRdo } from './rdo/user.rdo.js';
-import { HttpError } from '../../libs/rest/errors';
+import { HttpError } from '../../libs/rest/errors/index.js';
 import { StatusCodes } from 'http-status-codes';
 import { UserService } from './user-service.interface.js';
 import { Config } from 'convict';

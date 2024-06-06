@@ -3,7 +3,7 @@ import { jwtVerify } from 'jose';
 import { StatusCodes } from 'http-status-codes';
 import { createSecretKey } from 'node:crypto';
 import { Middleware } from './middleware.interface.js';
-import { HttpError } from '../errors';
+import { HttpError } from '../errors/index.js';
 import { TokenPayload } from '../../../modules/auth/types/TokenPayload.js';
 
 

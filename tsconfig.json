@@ -21,8 +21,9 @@
     "sourceMap": true,
     "outDir": "./dist",
     "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
     "types": [
-      "node",
+      "node"
     ],
     "lib": [
       "ESNext"

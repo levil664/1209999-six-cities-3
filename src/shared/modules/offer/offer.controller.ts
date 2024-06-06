@@ -1,13 +1,13 @@
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { Logger } from '../../libs/logger';
-import { Component } from '../../types';
+import { Logger } from '../../libs/logger/index.js';
+import { Component } from '../../types/index.js';
 import { OfferService } from './offer-service.interface.js';
 import { HttpMethod } from '../../libs/rest/types/http-method.enum.js';
-import { fillDTO } from '../../helpers';
+import { fillDTO } from '../../helpers/index.js';
 import { OfferRdo } from './rdo/offer.rdo.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
-import { HttpError } from '../../libs/rest/errors';
+import { HttpError } from '../../libs/rest/errors/index.js';
 import { StatusCodes } from 'http-status-codes';
 import { ParamOfferId } from './type/param-offerid.type.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';

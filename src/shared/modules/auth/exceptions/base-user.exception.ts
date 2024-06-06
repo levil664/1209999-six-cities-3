@@ -1,4 +1,4 @@
-import { HttpError } from '../../../libs/rest/errors';
+import { HttpError } from '../../../libs/rest/errors/index.js';
 
 
 export class BaseUserException extends HttpError {

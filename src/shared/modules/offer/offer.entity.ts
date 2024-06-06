@@ -1,6 +1,6 @@
 import { defaultClasses, getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose';
-import { City, Coordinates, HouseType } from '../../types';
-import { UserEntity } from '../user';
+import { City, Coordinates, HouseType } from '../../types/index.js';
+import { UserEntity } from '../user/index.js';
 import { Facilities } from '../../types/facilities.enum.js';
 
 
@@ -29,7 +29,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({type: String, required: true})
   public previewImagePath: string;
 
-  @prop({type: Array, required: true})
+  @prop({ type: () => [String]})
   public photosPaths: string[];
 
   @prop({type: Boolean, required: true, default: false})
@@ -53,7 +53,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({type: Number, required: true, min: 100, max: 100000})
   public rentPrice: number;
 
-  @prop({type: Array, required: true})
+  @prop({type: () => [String], required: true})
   public facilities: Facilities[];
 
   @prop({

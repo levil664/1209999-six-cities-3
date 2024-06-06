@@ -1,4 +1,4 @@
-import { UserType } from '../../../types';
+import { UserType } from '../../../types/index.js';
 import { CreateUserMessages } from './create-user.messages.js';
 import { IsEmail, IsEnum, IsString, Length } from 'class-validator';
 

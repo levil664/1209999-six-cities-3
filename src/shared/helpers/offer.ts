@@ -1,5 +1,5 @@
-import { City, HouseType, Offer, User, UserType } from '../types';
-import { Facilities } from '../types/facilities.enum';
+import { City, HouseType, Offer, User, UserType } from '../types/index.js';
+import { Facilities } from '../types/facilities.enum.js';
 
 
 export function createOffer(offerData: string): Offer {

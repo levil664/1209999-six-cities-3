@@ -1,8 +1,9 @@
+import { Logger } from './logger.interface.js';
 import { Logger as PinoInstance, pino, transport } from 'pino';
-import { injectable } from 'inversify';
 import { resolve } from 'node:path';
-import { Logger } from './logger.interface';
-import { getCurrentModuleDirectoryPath } from '../../helpers';
+import { injectable } from 'inversify';
+import fs from 'node:fs';
+import { getCurrentModuleDirectoryPath } from '../../helpers/index.js';
 
 @injectable()
 export class PinoLogger implements Logger {
@@ -12,39 +13,44 @@ export class PinoLogger implements Logger {
     const modulePath = getCurrentModuleDirectoryPath();
     const logFilePath = 'logs/rest.log';
     const destination = resolve(modulePath, '../../../', logFilePath);
+    const folderName = resolve(modulePath, '../../../', 'logs');
+
+    if (!fs.existsSync(folderName)) {
+      fs.mkdirSync(folderName);
+    }
 
     const multiTransport = transport({
       targets: [
         {
           target: 'pino/file',
-          options: { destination },
+          options: {destination},
           level: 'debug'
         },
         {
           target: 'pino/file',
           level: 'info',
-          options: {},
+          options: {}
         }
-      ],
+      ]
     });
 
     this.logger = pino({}, multiTransport);
     this.logger.info('Logger created...');
   }
 
-  public info(message: string, ...args: unknown[]): void {
+  info(message: string, ...args: unknown[]): void {
     this.logger.info(message, ...args);
   }
 
-  public warn(message: string, ...args: unknown[]): void {
+  warn(message: string, ...args: unknown[]): void {
     this.logger.warn(message, ...args);
   }
 
-  public debug(message: string, ...args: unknown[]): void {
-    this.logger.debug(message, ...args);
+  error(message: string, error: Error, ...args: unknown[]): void {
+    this.logger.error(error, message, ...args);
   }
 
-  public error(message: string, error: Error, ...args: unknown[]): void {
-    this.logger.error(error, message, ...args);
+  debug(message: string, ...args: unknown[]): void {
+    this.logger.debug(message, ...args);
   }
 }

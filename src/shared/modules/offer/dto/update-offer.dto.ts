@@ -1,8 +1,8 @@
 import { IsArray, IsBoolean, IsEnum, IsMongoId, IsObject, IsOptional, Max, MaxLength, Min, MinLength } from 'class-validator';
-import { Coordinates, HouseType } from '../../../types';
-import { City } from '../../../types';
-import { Facilities } from '../../../types/facilities.enum';
-import { CreateOfferValidationMessage } from './create-offer.messages';
+import { Coordinates, HouseType } from '../../../types/index.js';
+import { City } from '../../../types/index.js';
+import { Facilities } from '../../../types/facilities.enum.js';
+import { CreateOfferValidationMessage } from './create-offer.messages.js';
 
 
 export class UpdateOfferDto {

@@ -1,2 +1,2 @@
 export const DEFAULT_DB_PORT = '27017';
-export const DEFAULT_USER_PASSWORD = 'admin1admin1';
+export const DEFAULT_USER_PASSWORD = 'test';
