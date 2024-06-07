@@ -8,4 +8,23 @@ Content-Type: application/json
 POST http://localhost:5000/offers HTTP/1.1
 Content-Type: application/json
 
+{
+  "title":
+  description:
+  postDate
+  city
+  previewPhoto
+  photos
+  isPremium
+  isFavorite
+  rating
+  type
+  roomCount
+  guestsCount
+  price
+  facilities
+  authorId
+  coordinates
+}
+
 ###

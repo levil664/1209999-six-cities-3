@@ -1,17 +1,17 @@
-POST http://localhost:3000/users/register HTTP/1.1
+POST http://localhost:5000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
   "email": "Levil6.6.4@yandex.ru",
   "avatarPath": "lev.png",
-  "firstname": "Lev",
-  "lastname": "Tarasov",
-  "password": "admin1admin1"
+  "name": "Lev",
+  "password": "admin1admin1",
+  "type": "Pro"
 }
 
 ###
 
-POST http://localhost:3000/users/login HTTP/1.1
+POST http://localhost:5000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
