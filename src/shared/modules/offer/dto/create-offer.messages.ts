@@ -1,51 +1,51 @@
 export const CreateOfferValidationMessage = {
-  name: {
-    minLength: 'Name must be at least 10 characters long.',
-    maxLength: 'Name cannot exceed 100 characters.',
+  title: {
+    minLength: 'Minimum name length must be 10',
+    maxLength: 'Maximum name length must be 100',
   },
   description: {
-    minLength: 'Description must be at least 20 characters long.',
-    maxLength: 'Description cannot exceed 1024 characters.',
+    minLength: 'Minimum description length must be 20',
+    maxLength: 'Maximum description length must be 1024',
   },
   city: {
-    invalidFormat: 'City must be one of the following: Paris, Cologne, Brussels, Amsterdam, Hamburg, or Dusseldorf.',
+    invalidFormat: 'Must be one of Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf',
   },
-  previewImagePath: {
-    maxLength: 'Preview image path cannot exceed 256 characters.',
+  previewPhoto: {
+    maxLength: 'Maximum previewImage length must be 256',
   },
-  photosPaths: {
-    invalidFormat: 'Photos paths must be an array.',
+  photos: {
+    invalidFormat: 'Must be an array',
   },
   isPremium: {
-    invalid: 'Premium status must be a boolean value (true or false).',
+    invalid: 'type is not bool',
   },
   isFavorite: {
-    invalidFormat: 'Favorite status must be a boolean value (true or false).',
+    invalidFormat: 'Must be boolean',
   },
-  houseType: {
-    invalidFormat: 'House type must be one of the following: Apartment, House, Room, or Hotel.',
+  type: {
+    invalidFormat: 'Must be one of Apartment, House, Room, Hotel',
   },
-  numberRooms: {
-    min: 'Minimum number of rooms is 1.',
-    max: 'Maximum number of rooms is 8.',
+  roomCount: {
+    min: 'Minimum countRooms must be 1',
+    max: 'Maximum countRooms must be 8',
   },
-  numberGuests: {
-    min: 'Minimum number of guests is 1.',
-    max: 'Maximum number of guests is 10.',
+  guestsCount: {
+    min: 'Minimum countGuests must be 1',
+    max: 'Minimum countGuests must be 10',
   },
-  rentPrice: {
-    min: 'Minimum rent price is 100.',
-    max: 'Maximum rent price is 100,000.',
+  price: {
+    min: 'Minimum price must be 100',
+    max: 'Maximum price must be 100000',
   },
   facilities: {
-    invalidFormat: 'Facilities must be an array.',
+    invalidFormat: 'Must be an array',
     invalidElementFormat:
-      'Each facility must be one of the following: Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, or Fridge.',
-  },
-  userId: {
-    invalidId: 'User ID is invalid.',
+      'Element must be one of Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge',
   },
   coordinates: {
-    invalidFormat: 'Location coordinates are invalid.',
+    invalidFormat: 'Location must be a valid object',
+  },
+  authorId: {
+    invalidId: 'authorId field must be a valid id',
   },
 } as const;

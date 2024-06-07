@@ -1,8 +1,8 @@
 export enum Coordinates {
-  Rome = 'latitude: 41.902782, longitude: 12.496366',
-  Vienna = 'latitude: 52.520008, longitude: 13.404954',
-  Prague = 'latitude: 48.208174, longitude: 11.123131',
-  Berlin = 'latitude: 40.416775, longitude: -3.703790',
-  Madrid = 'latitude: 53.550341, longitude: 10.000654',
-  Stockholm = 'latitude: 51.225402, longitude: 6.776314'
+  Paris = 'latitude: 48.85661, longitude: 2.351499',
+  Cologne = 'latitude: 50.938361, longitude: 6.959974',
+  Brussels = 'latitude: 50.846557, longitude: 4.351697',
+  Amsterdam = 'latitude: 52.370216, longitude: 4.895168',
+  Hamburg = 'latitude: 53.550341, longitude: 10.000654',
+  Dusseldorf = 'latitude: 51.225402, longitude: 6.776314'
 }

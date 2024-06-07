@@ -1,28 +1,27 @@
-import { Facilities } from '../../../types/facilities.enum.js';
-import { HouseType, City, Coordinates } from '../../../types/index.js';
+import { IsArray, IsBoolean, IsEnum, IsMongoId, IsObject, Max, MaxLength, Min, MinLength } from 'class-validator';
+import { Coordinates, HouseType, City, Facilities } from '../../../types/index.js';
 import { CreateOfferValidationMessage } from './create-offer.messages.js';
-import { IsArray, IsBoolean, IsEnum, IsObject, Max, MaxLength, Min, MinLength } from 'class-validator';
 
 
 export class CreateOfferDto {
-  @MinLength(10, { message: CreateOfferValidationMessage.name.minLength })
-  @MaxLength(100, { message: CreateOfferValidationMessage.name.maxLength })
-  public name: string;
+  @MinLength(10, { message: CreateOfferValidationMessage.title.minLength })
+  @MaxLength(100, { message: CreateOfferValidationMessage.title.maxLength })
+  public title: string;
 
   @MinLength(20, { message: CreateOfferValidationMessage.description.minLength })
   @MaxLength(1024, { message: CreateOfferValidationMessage.description.maxLength })
   public description: string;
 
-  public datePublished: Date;
+  public postDate: Date;
 
   @IsEnum(City, { message: CreateOfferValidationMessage.city.invalidFormat })
   public city: City;
 
-  @MaxLength(256, { message: CreateOfferValidationMessage.previewImagePath.maxLength })
-  public previewImagePath: string;
+  @MaxLength(256, { message: CreateOfferValidationMessage.previewPhoto.maxLength })
+  public previewPhoto: string;
 
-  @IsArray({ message: CreateOfferValidationMessage.photosPaths.invalidFormat })
-  public photosPaths: string[];
+  @IsArray({ message: CreateOfferValidationMessage.photos.invalidFormat })
+  public photos: string[];
 
   @IsBoolean({ message: CreateOfferValidationMessage.isPremium.invalid })
   public isPremium: boolean;
@@ -32,29 +31,30 @@ export class CreateOfferDto {
 
   public rating: number;
 
-  @IsEnum(HouseType, {message: CreateOfferValidationMessage.houseType.invalidFormat})
-  public houseType: HouseType;
+  @IsEnum(HouseType, {message: CreateOfferValidationMessage.type.invalidFormat})
+  public type: HouseType;
 
-  @Min(1, { message: CreateOfferValidationMessage.numberRooms.min })
-  @Max(8, { message: CreateOfferValidationMessage.numberRooms.max })
-  public numberRooms: number;
+  @Min(1, { message: CreateOfferValidationMessage.roomCount.min })
+  @Max(8, { message: CreateOfferValidationMessage.roomCount.max })
+  public roomCount: number;
 
-  @Min(1, { message: CreateOfferValidationMessage.numberGuests.min })
-  @Max(10, { message: CreateOfferValidationMessage.numberGuests.max })
-  public numberGuests: number;
+  @Min(1, { message: CreateOfferValidationMessage.guestsCount.min })
+  @Max(10, { message: CreateOfferValidationMessage.guestsCount.max })
+  public guestsCount: number;
 
-  @Min(100, { message: CreateOfferValidationMessage.rentPrice.min })
-  @Max(100000, { message: CreateOfferValidationMessage.rentPrice.max })
-  public rentPrice: number;
+  @Min(100, { message: CreateOfferValidationMessage.price.min })
+  @Max(100000, { message: CreateOfferValidationMessage.price.max })
+  public price: number;
 
   @IsArray({ message: CreateOfferValidationMessage.facilities.invalidFormat })
   @IsEnum(Facilities, {message: CreateOfferValidationMessage.facilities.invalidElementFormat})
   public facilities: Facilities[];
 
-  public userId: string;
-
-  public numberComments: number;
-
   @IsObject({ message: CreateOfferValidationMessage.coordinates.invalidFormat })
   public coordinates: Coordinates;
+
+  @IsMongoId({ message: CreateOfferValidationMessage.authorId.invalidId })
+  public authorId: string;
+
+  public numberComments: number;
 }

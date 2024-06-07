@@ -2,18 +2,18 @@ import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
+import { BaseController } from '../../libs/rest/controller/base-controller.abstract.js';
 import { OfferService } from './offer-service.interface.js';
 import { HttpMethod } from '../../libs/rest/types/http-method.enum.js';
-import { fillDTO } from '../../helpers/index.js';
+import { fillDTO } from '../../helpers/common.js';
 import { OfferRdo } from './rdo/offer.rdo.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
-import { HttpError } from '../../libs/rest/errors/index.js';
+import { HttpError } from '../../libs/rest/errors/http-error.js';
 import { StatusCodes } from 'http-status-codes';
-import { ParamOfferId } from './type/param-offerid.type.js';
+import { ParamOfferId } from './type/param.offerid.type.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
-import { CommentService } from '../comment';
+import { CommentService } from '../comment/comment-service.interface.js';
 import { CommentRdo } from '../comment/rdo/comment.rdo.js';
-import { BaseController } from '../../libs/rest/controller/base-controller.abstract.js';
 import { ValidateObjectIdMiddleware } from '../../libs/rest/middleware/validate-objectid.middleware.js';
 import { ValidateDtoMiddleware } from '../../libs/rest/middleware/validate-dto.middleware.js';
 import { DocumentExistsMiddleware } from '../../libs/rest/middleware/document-exists.middleware.js';
@@ -33,18 +33,14 @@ export class OfferController extends BaseController {
 
     this.logger.info('Register routes for OfferController…');
 
-    this.addRoute({
-      path: '/',
-      method: HttpMethod.Get,
-      handler: this.index,
-    });
+    this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
     this.addRoute({
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
       middlewares: [
         new PrivateRouteMiddleware(),
-        new ValidateDtoMiddleware(CreateOfferDto),
+        new ValidateDtoMiddleware(CreateOfferDto)
       ]
     });
     this.addRoute({
@@ -113,7 +109,6 @@ export class OfferController extends BaseController {
       method: HttpMethod.Get,
       handler: this.getComments,
       middlewares: [
-        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
@@ -130,7 +125,7 @@ export class OfferController extends BaseController {
     { body, tokenPayload }: Request<RequestParams, RequestBody, CreateOfferDto>,
     res: Response
   ): Promise<void> {
-    const result = await this.offerService.create({ ...body, userId: tokenPayload.id });
+    const result = await this.offerService.create({ ...body, authorId: tokenPayload.id });
     this.created(res, fillDTO(OfferRdo, result));
   }
 
@@ -195,8 +190,8 @@ export class OfferController extends BaseController {
         'OfferController'
       );
     }
-
     const comments = await this.commentService.findByOfferId(params.offerId);
     this.ok(res, fillDTO(CommentRdo, comments));
   }
+
 }

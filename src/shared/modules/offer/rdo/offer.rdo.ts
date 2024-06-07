@@ -1,33 +1,29 @@
 import { Expose } from 'class-transformer';
-import { Coordinates } from '../../../types/index.js';
-import { City } from '../../../types/index.js';
-import { HouseType } from '../../../types/index.js';
-import { Facilities } from '../../../types/facilities.enum.js';
-import { UserEntity } from '../../user/index.js';
+import { City, HouseType, Facilities, Coordinates } from '../../../types/index.js';
+import { UserEntity } from '../../../modules/user/user.entity.js';
 import { Ref } from '@typegoose/typegoose';
-
 
 export class OfferRdo {
   @Expose()
   public id:string;
 
   @Expose()
-  public name: string;
+  public title: string;
 
   @Expose()
   public description:string;
 
   @Expose()
-  public datePublished: Date;
+  public postDate: Date;
 
   @Expose()
   public city: City;
 
   @Expose()
-  public previewImagePath: string;
+  public previewPhoto: string;
 
   @Expose()
-  public photosPaths: string[];
+  public photos: string[];
 
   @Expose()
   public isPremium: boolean;
@@ -36,29 +32,29 @@ export class OfferRdo {
   public isFavorite: boolean;
 
   @Expose()
-  public numberRooms: number;
-
-  @Expose()
-  public numberGuests: number;
-
-  @Expose()
   public rating:number;
 
   @Expose()
-  public houseType: HouseType;
+  public type: HouseType;
 
   @Expose()
-  public rentPrice: number;
+  public roomCount: number;
+
+  @Expose()
+  public guestsCount: number;
+
+  @Expose()
+  public price: number;
 
   @Expose()
   public facilities: Facilities[];
 
   @Expose()
-  public userId: Ref<UserEntity>;
+  public coordinates: Coordinates;
+
+  @Expose()
+  public authorId: Ref<UserEntity>;
 
   @Expose()
   public numberComments: number;
-
-  @Expose()
-  public coordinates: Coordinates;
 }
