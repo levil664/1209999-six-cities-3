@@ -1,12 +1,17 @@
 export const CreateCommentMessages = {
-  description: {
-    invalidFormat: 'Please provide a description for the offer.',
-    lengthField: 'Description must be between 5 and 2024 characters.',
+  comment: {
+    invalidFormat: 'comment is required',
+    lengthField: 'min length is 5, max is 1024'
+  },
+  rating: {
+    invalidFormat: 'rating must be number',
+    minValue: 'minimum rating is 1',
+    maxValue: 'maximum rating is 5',
   },
   offerId: {
-    invalidFormat: 'Invalid offer ID. Please check the format.',
+    invalidFormat: 'offerId field must be a valid id'
   },
   userId: {
-    invalidFormat: 'Invalid user ID. Please check the format.',
-  }
+    invalidFormat: 'userId field must be a valid id'
+  },
 } as const;

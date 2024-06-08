@@ -17,7 +17,6 @@ tags:
     description: Действия с комментариями.
 
 paths:
-
   /offers:
     get:
       tags:
@@ -149,6 +148,32 @@ paths:
         "500":
           description: Внутренняя ошибка сервера
 
+  /offers/{offerId}/comments:
+    get:
+      tags:
+        - comments
+      summary: Список комментариев для предложения
+      description: Возвращает список комментариев для предложения
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Комментарии для предложения
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/comment"
+        "400":
+          description: Неправильный запрос
+        "500":
+          description: Внутренняя ошибка сервера
+
   /premium?city={city}:
     get:
       tags:
@@ -229,31 +254,6 @@ paths:
           description: Внутренняя ошибка сервера
 
   /comments/{offerId}:
-    get:
-      tags:
-        - comments
-      summary: Список комментариев для предложения
-      description: Возвращает список комментариев для предложения
-      parameters:
-        - name: offerId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Комментарии для предложения
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/comment"
-        "400":
-          description: Неправильный запрос
-        "500":
-          description: Внутренняя ошибка сервера
-
     post:
       tags:
         - comments
@@ -824,23 +824,27 @@ components:
       type: object
 
       required:
-        - text
+        - comment
+        - offerId
         - rating
-        - postDate
-        - authorId
+        - userId
 
       properties:
-        text:
+        comment:
           type: string
-          example: "Good"
+          example: "comment"
+
+        offerId:
+          type: string
+          example: "6662fa65ffbc8df9a7273c52"
 
         rating:
           type: number
           example: 4
 
-        authorId:
+        userId:
           type: string
-          example: 661bef9f1bdfe1195539b653
+          example: "66632082760da2c24c72790b"
 
   securitySchemes:
     bearerAuth:

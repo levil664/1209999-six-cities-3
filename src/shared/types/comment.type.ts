@@ -1,8 +1,6 @@
-import { User } from './user.type.js';
-
 export type Comment = {
-  text: string;
-  postDate: Date;
-  rating: string,
-  author: User;
+  comment: string;
+  offerId: string;
+  rating: number,
+  userId: string;
 }
