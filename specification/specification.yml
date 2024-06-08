@@ -1,31 +1,13 @@
-openapi: 3.0.2
-info:
-  title: API для проекта «Шесть городов».
-  description: |-
-    * Список ресурсов и маршрутов сервера «Шесть городов».
-  license:
-    name: MIT
-    url: https://opensource.org/licenses/MIT
-  version: 1.0.0
-
-tags:
-  - name: offers
-    description: Действия с объявлениями.
-  - name: users
-    description: Действия с пользователем.
-  - name: comments
-    description: Действия с комментариями.
-
 paths:
   /offers:
     get:
       tags:
         - offers
       summary: Получение списка предложений
-      description: Список предложений
+      description: Возвращает список всех доступных предложений.
       responses:
         "200":
-          description: Список предложений
+          description: Список предложений успешно получен.
           content:
             application/json:
               schema:
@@ -33,13 +15,13 @@ paths:
                 items:
                   $ref: "#/components/schemas/offer"
         "500":
-          description: Внутренняя ошибка сервера
+          description: Внутренняя ошибка сервера.
 
     post:
       tags:
         - offers
-      summary: Создание предложения
-      description: Создает предложение
+      summary: Создание нового предложения
+      description: Создает новое предложение.
       security:
         - bearerAuth: []
       requestBody:
@@ -52,24 +34,24 @@ paths:
 
       responses:
         "201":
-          description: Предложение об аренде создано. Объект предложения.
+          description: Предложение успешно создано.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/fullOffer"
         "400":
-          description: Неправильный запрос
+          description: Неверный запрос.
         "401":
-          description: Пользователь не авторизован
+          description: Пользователь не авторизован.
         "500":
-          description: Внутренняя ошибка сервера
+          description: Внутренняя ошибка сервера.
 
   /offers/{offerId}:
     get:
       tags:
         - offers
-      summary: Детальная информация по предложению
-      description: Возвращает детальную информацию по предложению
+      summary: Получение информации о конкретном предложении
+      description: Возвращает детальную информацию о предложении по его идентификатору.
       parameters:
         - name: offerId
           in: path
@@ -78,23 +60,23 @@ paths:
             type: string
       responses:
         "200":
-          description: Детальная информация по предложению
+          description: Детальная информация о предложении успешно получена.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/fullOffer"
         "400":
-          description: Неправильный запрос
+          description: Неверный запрос.
         "404":
-          description: Оффер не найден
+          description: Предложение не найдено.
         "500":
-          description: Внутренняя ошибка сервера
+          description: Внутренняя ошибка сервера.
 
     patch:
       tags:
         - offers
       summary: Редактирование предложения
-      description: Редактирует предложение
+      description: Редактирует предложение по его идентификатору.
       parameters:
         - name: offerId
           in: path
@@ -102,7 +84,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: Информация для редактирования предложения
+        description: Информация для редактирования предложения.
         content:
           application/json:
             schema:
@@ -111,25 +93,25 @@ paths:
 
       responses:
         "200":
-          description: Предложение отредактировано. Объект предложения
+          description: Предложение успешно отредактировано.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/fullOffer"
         "400":
-          description: Неправильный запрос
+          description: Неверный запрос.
         "401":
-          description: Пользователь не авторизован
+          description: Пользователь не авторизован.
         "403":
-          description: Доступ запрещен
+          description: Доступ запрещен.
         "500":
-          description: Внутренняя ошибка сервера
+          description: Внутренняя ошибка сервера.
 
     delete:
       tags:
         - offers
       summary: Удаление предложения
-      description: Осуществляет удаление предложения
+      description: Удаляет предложение по его идентификатору.
       parameters:
         - name: offerId
           in: path
@@ -138,22 +120,22 @@ paths:
             type: string
       responses:
         "204":
-          description: ОК
+          description: Успешное удаление.
         "400":
-          description: Неправильный запрос
+          description: Неверный запрос.
         "401":
-          description: Пользователь не авторизован
+          description: Пользователь не авторизован.
         "403":
-          description: Доступ запрещен
+          description: Доступ запрещен.
         "500":
-          description: Внутренняя ошибка сервера
+          description: Внутренняя ошибка сервера.
 
   /offers/{offerId}/comments:
     get:
       tags:
         - comments
-      summary: Список комментариев для предложения
-      description: Возвращает список комментариев для предложения
+      summary: Получение списка комментариев к предложению
+      description: Возвращает список комментариев для указанного предложения.
       parameters:
         - name: offerId
           in: path
@@ -162,7 +144,7 @@ paths:
             type: string
       responses:
         "200":
-          description: Комментарии для предложения
+          description: Список комментариев для предложения
           content:
             application/json:
               schema:
@@ -170,16 +152,16 @@ paths:
                 items:
                   $ref: "#/components/schemas/comment"
         "400":
-          description: Неправильный запрос
+          description: Некорректный запрос
         "500":
           description: Внутренняя ошибка сервера
 
-  /premium?city={city}:
+  /offers/premium:
     get:
       tags:
         - offers
-      summary: Премиальные предложения для города
-      description: Возвращает премиальные предложения для города
+      summary: Получение премиальных предложений для города
+      description: Возвращает список премиальных предложений для указанного города.
       parameters:
         - name: city
           in: query
@@ -188,7 +170,7 @@ paths:
             type: string
       responses:
         "200":
-          description: Премиальные предложения для города
+          description: Список премиальных предложений для города
           content:
             application/json:
               schema:
@@ -196,21 +178,21 @@ paths:
                 items:
                   $ref: "#/components/schemas/offer"
         "400":
-          description: Неправильный запрос
+          description: Некорректный запрос
         "500":
           description: Внутренняя ошибка сервера
 
-  /favorite:
+  /offers/favorite:
     get:
       tags:
         - offers
-      summary: Список избранных предложений
-      description: Возвращает список избранных предложений
+      summary: Получение списка избранных предложений
+      description: Возвращает список избранных предложений пользователя.
       security:
         - bearerAuth: []
       responses:
         "200":
-          description: Избранные предложения
+          description: Список избранных предложений
           content:
             application/json:
               schema:
@@ -222,12 +204,12 @@ paths:
         "500":
           description: Внутренняя ошибка сервера
 
-  /favorite/{offerId}/{status}:
+  /offers/favorite/{offerId}:
     post:
       tags:
         - offers
-      summary: Добавление/удаление предложения в избранное/из избранного
-      description: Добавляет/удаляет в список/из списка избранных предложение
+      summary: Изменение статуса избранного предложения
+      description: Добавляет предложение в избранное или удаляет из избранного.
       parameters:
         - name: offerId
           in: path
@@ -241,13 +223,13 @@ paths:
             type: string
       responses:
         "200":
-          description: Предложение добавлено/удалено в избранное/из избранного. Объект предложения
+          description: Статус предложения изменен. Объект предложения.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/fullOffer"
         "400":
-          description: Неправильный запрос
+          description: Некорректный запрос
         "401":
           description: Пользователь не авторизован
         "500":
@@ -257,32 +239,30 @@ paths:
     post:
       tags:
         - comments
-      summary: Добавление комментария
-      description: Добавляет в список комментариев для предложения
+      summary: Добавление комментария к предложению
+      description: Добавляет новый комментарий к указанному предложению.
       parameters:
         - name: offerId
           in: path
           required: true
           schema:
             type: string
-
       requestBody:
-        description: Информация для добавления комментария для предложения
+        description: Данные для добавления комментария
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/createComment"
         required: true
-
       responses:
         "201":
-          description: Комментарий добавлен в избранное. Объект комментария.
+          description: Комментарий успешно добавлен. Объект комментария.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/comment"
         "400":
-          description: Неправильный запрос
+          description: Некорректный запрос
         "401":
           description: Пользователь не авторизован
         "500":
@@ -292,10 +272,10 @@ paths:
     post:
       tags:
         - users
-      summary: Регистрация пользователя
-      description: Регистрирует нового пользователя
+      summary: Регистрация нового пользователя
+      description: Регистрирует нового пользователя.
       requestBody:
-        description: Информация для создания нового пользователя
+        description: Данные для создания нового пользователя
         content:
           application/json:
             schema:
@@ -303,7 +283,7 @@ paths:
         required: true
       responses:
         "201":
-          description: Пользователь зарегистрирован. Объект пользователя
+          description: Пользователь успешно зарегистрирован. Объект пользователя.
           content:
             application/json:
               schema:
@@ -314,7 +294,7 @@ paths:
                         type: string
                         example: "661bef9f1bdfe1195539b653"
         "400":
-          description: Неправильный запрос
+          description: Некорректный запрос
         "409":
           description: Пользователь с таким email уже существует
         "500":
@@ -325,9 +305,9 @@ paths:
       tags:
         - users
       summary: Авторизация пользователя
-      description: Авторизует пользователя
+      description: Авторизует пользователя.
       requestBody:
-        description: Информация для авторизации пользователя
+        description: Данные для авторизации пользователя
         content:
           application/json:
             schema:
@@ -335,7 +315,7 @@ paths:
         required: true
       responses:
         "200":
-          description: Пользователь авторизован. Объект пользователя
+          description: Пользователь успешно авторизован. Объект пользователя.
           content:
             application/json:
               schema:
@@ -345,15 +325,15 @@ paths:
                       token:
                         type: string
         "400":
-          description: Неправильный запрос
+          description: Некорректный запрос
         "500":
           description: Внутренняя ошибка сервера
 
     get:
       tags:
         - users
-      summary: Проверка состояния пользователя
-      description: Возвращает информацию по авторизованному пользователю
+      summary: Проверка состояния авторизации пользователя
+      description: Возвращает информацию об авторизованном пользователе.
       parameters:
         - in: header
           name: Authorization
@@ -372,7 +352,7 @@ paths:
                       token:
                         type: string
         "400":
-          description: Неправильный запрос
+          description: Некорректный запрос
         "401":
           description: Пользователь не авторизован
         "500":
@@ -382,9 +362,8 @@ paths:
     post:
       tags:
         - users
-      summary: Загрузить изображение аватара
-      description: Загружает изображение аватара пользователя. Изображение
-        аватара должно быть в формате `png` или `jpg`.
+      summary: Загрузка аватара пользователя
+      description: Загружает изображение аватара для пользователя. Допустимые форматы `png`, `jpg`.
       parameters:
         - name: userId
           in: path
@@ -392,7 +371,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: Аватар пользователя.
+        description: Файл аватара пользователя.
         content:
           multipart/form-data:
             schema:
@@ -401,12 +380,13 @@ paths:
               properties:
                 avatarUrl:
                   type: string
+                  format: binary
                   example: photo.jpg
       responses:
         "201":
-          description: OK
+          description: Аватар успешно загружен
         "400":
-          description: Неправильный запрос
+          description: Некорректный запрос
         "404":
           description: Пользователь не найден
         "500":
@@ -416,8 +396,8 @@ paths:
     delete:
       tags:
         - users
-      summary: Завершение сеанса
-      description: Осуществляет завершение пользовательского сеанса
+      summary: Завершение пользовательского сеанса
+      description: Завершает текущий сеанс пользователя.
       security:
         - bearerAuth: []
       requestBody:
@@ -431,9 +411,9 @@ paths:
         required: true
       responses:
         "204":
-          description: ОК
+          description: Успешное завершение сеанса
         "400":
-          description: Неверный токен
+          description: Некорректный токен
         "500":
           description: Внутренняя ошибка сервера
 
@@ -457,7 +437,7 @@ components:
         - Amsterdam
         - Hamburg
         - Dusseldorf
-      example: Paris
+      example: Brussels
 
     houseType:
       type: string
@@ -466,7 +446,7 @@ components:
         - house
         - room
         - hotel
-      example: apartment
+      example: house
 
     facilities:
       type: string
@@ -478,7 +458,7 @@ components:
         - Washer
         - Towels
         - Fridge
-      example: Breakfast
+      example: Washer
 
     coordinates:
       type: string
@@ -489,7 +469,7 @@ components:
         - 'latitude: 52.370216, longitude: 4.895168'
         - 'latitude: 53.550341, longitude: 10.000654'
         - 'latitude: 51.225402, longitude: 6.776314'
-      example: 'latitude: 52.370216, longitude: 4.895168'
+      example: 'latitude: 48.85661, longitude: 2.351499'
 
     offer:
       type: object
@@ -509,15 +489,15 @@ components:
       properties:
         id:
           type: string
-          example: 6662e498cc90ecad29ce93b7
+          example: 6662fa65ffbc8df9a7273c52
 
         price:
           type: number
-          example: 700
+          example: 1500
 
         title:
           type: string
-          example: Уютная квартира
+          example: Загадочная вилла в лесу
 
         houseType:
           $ref: "#/components/schemas/houseType"
@@ -535,7 +515,7 @@ components:
 
         previewPhoto:
           type: string
-          example: prev-photo-d.jpg
+          example: prev-photo-r.jpg
 
         isPremium:
           type: boolean
@@ -543,11 +523,11 @@ components:
 
         rating:
           type: number
-          example: 5
+          example: 4
 
         numberComments:
           type: number
-          example: 2
+          example: 4
 
     fullOffer:
       type: object
@@ -732,7 +712,7 @@ components:
 
 
         coordinates:
-          type: object
+          type: string
           items:
             $ref: "#/components/schemas/coordinates"
 

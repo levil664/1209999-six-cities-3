@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsEnum, IsMongoId, IsObject, Max, MaxLength, Min, MinLength } from 'class-validator';
+import { IsArray, IsBoolean, IsEnum, IsMongoId, Max, MaxLength, Min, MinLength } from 'class-validator';
 import { Coordinates, HouseType, City, Facilities } from '../../../types/index.js';
 import { CreateOfferValidationMessage } from './create-offer.messages.js';
 
@@ -47,10 +47,10 @@ export class CreateOfferDto {
   public price: number;
 
   @IsArray({ message: CreateOfferValidationMessage.facilities.invalidFormat })
-  @IsEnum(Facilities, {message: CreateOfferValidationMessage.facilities.invalidElementFormat})
+  @IsEnum(Facilities, { message: CreateOfferValidationMessage.facilities.invalidElementFormat, each: true })
   public facilities: Facilities[];
 
-  @IsObject({ message: CreateOfferValidationMessage.coordinates.invalidFormat })
+  @IsEnum(Coordinates, {message: CreateOfferValidationMessage.coordinates.invalidFormat})
   public coordinates: Coordinates;
 
   @IsMongoId({ message: CreateOfferValidationMessage.authorId.invalidId })

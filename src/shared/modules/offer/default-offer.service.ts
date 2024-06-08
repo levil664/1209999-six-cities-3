@@ -30,6 +30,7 @@ export class DefaultOfferService implements OfferService {
   public async find(): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
+      .sort({ postDate: SortType.Down })
       .populate(['authorId'])
       .exec();
   }
@@ -56,7 +57,7 @@ export class DefaultOfferService implements OfferService {
     return this.offerModel
       .findByIdAndUpdate(offerId, {
         '$inc': {
-          commentCount: 1,
+          numberComments: 1,
         }
       }).exec();
   }

@@ -1,13 +1,25 @@
 # Офферы
 ## Получить список офферов
 GET http://localhost:5000/offers HTTP/1.1
+Content-Type: application/json#
+
+###
+
+## Получить список избранных офферов
+GET http://localhost:5000/offers/favorites HTTP/1.1
+Content-Type: application/json
+
+###
+
+## Получить список премиальных офферов
+GET http://localhost:5000/offers/premium?city=Brussels HTTP/1.1
 Content-Type: application/json
 
 ###
 ## Создать оффер
 POST http://localhost:5000/offers HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4LnJ1IiwibmFtZSI6IkxldiIsImlkIjoiNjY2MzIwODI3NjBkYTJjMjRjNzI3OTBiIiwiaWF0IjoxNzE3ODM4NTE3LCJleHAiOjE3MTgwMTEzMTd9.xplWmj7Vl5f_GTmhh39CY1qNJvpqfwG8urAZoVpNLIk
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4LnJ1IiwibmFtZSI6IkxldiIsImlkIjoiNjY2MzIwODI3NjBkYTJjMjRjNzI3OTBiIiwiaWF0IjoxNzE3ODY5NjQ3LCJleHAiOjE3MTgwNDI0NDd9.tjkjg_-AN2wb1nG0x1W5tnbniXyBqDv4puRaf7pn880
 
 {
   "title": "A wonderful apartment",
@@ -18,8 +30,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4L
   "photos": [
     "photo-1.jpg"
   ],
-  "isPremium": true,
-  "isFavorite": true,
+  "isPremium": false,
+  "isFavorite": false,
   "rating": 5,
   "type": "apartment",
   "roomCount": 5,
@@ -27,10 +39,64 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4L
   "price": 7000,
   "facilities": ["Washer"],
   "authorId": "666424c44eb2b351c9d77861",
-  "coordinates": {
-    "latitude": 48.85661,
-    "longitude": 2.351499
-  }
+  "coordinates": "latitude: 48.85661, longitude: 2.351499"
 }
 
 ###
+
+POST http://localhost:5000/offers/favorites/6662fa65ffbc8df9a7273c52 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4LnJ1IiwibmFtZSI6IkxldiIsImlkIjoiNjY2MzIwODI3NjBkYTJjMjRjNzI3OTBiIiwiaWF0IjoxNzE3ODY5NjQ3LCJleHAiOjE3MTgwNDI0NDd9.tjkjg_-AN2wb1nG0x1W5tnbniXyBqDv4puRaf7pn880
+
+###
+
+DELETE http://localhost:5000/offers/favorites/6662fa65ffbc8df9a7273c52 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4LnJ1IiwibmFtZSI6IkxldiIsImlkIjoiNjY2MzIwODI3NjBkYTJjMjRjNzI3OTBiIiwiaWF0IjoxNzE3ODY5NjQ3LCJleHAiOjE3MTgwNDI0NDd9.tjkjg_-AN2wb1nG0x1W5tnbniXyBqDv4puRaf7pn880
+
+###
+
+GET http://localhost:5000/offers/6662fa65ffbc8df9a7273c52 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4LnJ1IiwibmFtZSI6IkxldiIsImlkIjoiNjY2MzIwODI3NjBkYTJjMjRjNzI3OTBiIiwiaWF0IjoxNzE3ODY5NjQ3LCJleHAiOjE3MTgwNDI0NDd9.tjkjg_-AN2wb1nG0x1W5tnbniXyBqDv4puRaf7pn880
+
+###
+
+DELETE http://localhost:5000/offers/6662fa65ffbc8df9a7273c52 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4LnJ1IiwibmFtZSI6IkxldiIsImlkIjoiNjY2MzIwODI3NjBkYTJjMjRjNzI3OTBiIiwiaWF0IjoxNzE3ODY5NjQ3LCJleHAiOjE3MTgwNDI0NDd9.tjkjg_-AN2wb1nG0x1W5tnbniXyBqDv4puRaf7pn880
+
+###
+
+PATCH http://localhost:5000/offers/6662fa65ffbc8df9a7273c52 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4LnJ1IiwibmFtZSI6IkxldiIsImlkIjoiNjY2MzIwODI3NjBkYTJjMjRjNzI3OTBiIiwiaWF0IjoxNzE3ODY5NjQ3LCJleHAiOjE3MTgwNDI0NDd9.tjkjg_-AN2wb1nG0x1W5tnbniXyBqDv4puRaf7pn880
+
+{
+  "id": "6662fa65ffbc8df9a7273c52",
+  "title": "A wonderful apartment",
+  "description": "This is a fantastic apartment located in the heart of Paris, perfect for families.",
+  "postDate": "2024-06-08T00:00:00Z",
+  "city": "Paris",
+  "previewPhoto": "prev-photo-r.jpg",
+  "photos": [
+    "photo-1.jpg"
+  ],
+  "isPremium": false,
+  "isFavorite": false,
+  "rating": 5,
+  "type": "apartment",
+  "roomCount": 5,
+  "guestsCount": 5,
+  "price": 7000,
+  "facilities": ["Washer"],
+  "authorId": "666424c44eb2b351c9d77861",
+  "coordinates": "latitude: 48.85661, longitude: 2.351499",
+  "numberComments": 4
+}
+
+###
+
+GET http://localhost:5000/offers/6662fa65ffbc8df9a7273c52/comments HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4LnJ1IiwibmFtZSI6IkxldiIsImlkIjoiNjY2MzIwODI3NjBkYTJjMjRjNzI3OTBiIiwiaWF0IjoxNzE3ODY5NjQ3LCJleHAiOjE3MTgwNDI0NDd9.tjkjg_-AN2wb1nG0x1W5tnbniXyBqDv4puRaf7pn880
