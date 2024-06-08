@@ -1,3 +1,5 @@
+# Комменты
+## Создать коммент к офферу
 POST http://localhost:5000/comments/6662fa65ffbc8df9a7273c52 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IkxldmlsNi42LjRAeWFuZGV4LnJ1IiwibmFtZSI6IkxldiIsImlkIjoiNjY2MzIwODI3NjBkYTJjMjRjNzI3OTBiIiwiaWF0IjoxNzE3ODY5NjQ3LCJleHAiOjE3MTgwNDI0NDd9.tjkjg_-AN2wb1nG0x1W5tnbniXyBqDv4puRaf7pn880
