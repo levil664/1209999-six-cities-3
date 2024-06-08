@@ -13,7 +13,6 @@ import { LoginUserDto } from '../user/dto/login-user.dto.js';
 import { UserNotFoundException } from './exceptions/user-not-found.exception.js';
 import { UserPasswordIncorrectException } from './exceptions/user-password-incorrect.exception.js';
 
-
 @injectable()
 export class DefaultAuthService implements AuthService {
   constructor(
@@ -21,6 +20,8 @@ export class DefaultAuthService implements AuthService {
     @inject(Component.UserService) private readonly userService: UserService,
     @inject(Component.Config) private readonly config: Config<RestSchema>,
   ) {}
+
+  private tokens: string[] = [];
 
   public async authenticate(user: UserEntity): Promise<string> {
     const jwtSecret = this.config.get('JWT_SECRET');
@@ -41,16 +42,25 @@ export class DefaultAuthService implements AuthService {
 
   public async verify(dto: LoginUserDto): Promise<UserEntity> {
     const user = await this.userService.findByEmail(dto.email);
-    if (! user) {
+    if (!user) {
       this.logger.warn(`User with ${dto.email} not found`);
       throw new UserNotFoundException();
     }
 
-    if (! user.verifyPassword(dto.password, this.config.get('SALT'))) {
+    if (!user.verifyPassword(dto.password, this.config.get('SALT'))) {
       this.logger.warn(`Incorrect password for ${dto.email}`);
       throw new UserPasswordIncorrectException();
     }
 
     return user;
+  }
+
+  public async invalidateToken(token: string): Promise<number> {
+    const tokenIndex = this.tokens.findIndex((t) => t === token);
+    if (tokenIndex !== -1) {
+      this.tokens.splice(tokenIndex, 1);
+    }
+
+    return tokenIndex;
   }
 }

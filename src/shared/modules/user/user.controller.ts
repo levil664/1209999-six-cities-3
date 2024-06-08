@@ -21,7 +21,8 @@ import { UploadFileMiddleware } from '../../libs/rest/middleware/upload-file.mid
 import { UploadUserAvatarRdo } from './rdo/upload-user-avatar.rdo.js';
 import { AuthService } from '../auth/auth-service.interface.js';
 import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
-
+import { LogoutUserRequest } from './logout-user-request.type';
+import { LogoutUserDto } from './dto/logout-user.dto.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -45,6 +46,12 @@ export class UserController extends BaseController {
       method: HttpMethod.Post,
       handler: this.login,
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
+    });
+    this.addRoute({
+      path: '/logout',
+      method: HttpMethod.Delete,
+      handler: this.logout,
+      middlewares: [new ValidateDtoMiddleware(LogoutUserDto)]
     });
     this.addRoute({
       path: '/:userId/avatar',
@@ -93,9 +100,36 @@ export class UserController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public async uploadAvatar({ params, file }: Request, res: Response) {
+  public async logout(
+    { body }: LogoutUserRequest,
+    res: Response,
+  ): Promise<void> {
+    const { token } = body;
+    if (!token) {
+      throw new HttpError(
+        StatusCodes.BAD_REQUEST,
+        'Token not provided',
+        'UserController',
+      );
+    }
+
+    const responseData = await this.authService.invalidateToken(token);
+    this.ok(res, responseData);
+  }
+
+  public async uploadAvatar({ params, body }: Request, res: Response) {
     const { userId } = params;
-    const uploadFile = { avatarPath: file?.filename };
+    const { avatarPath } = body;
+
+    if (!avatarPath) {
+      throw new HttpError(
+        StatusCodes.BAD_REQUEST,
+        'No avatarPath provided',
+        'UserController'
+      );
+    }
+
+    const uploadFile = { avatarPath };
     await this.userService.updateById(userId, uploadFile);
     this.created(res, fillDTO(UploadUserAvatarRdo, { filepath: uploadFile.avatarPath }));
   }
@@ -111,6 +145,6 @@ export class UserController extends BaseController {
       );
     }
 
-    this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
+    this.ok(res, fillDTO(UserRdo, foundedUser));
   }
 }

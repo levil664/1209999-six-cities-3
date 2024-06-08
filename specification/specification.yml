@@ -732,7 +732,7 @@ components:
 
 
         coordinates:
-          type: string
+          type: object
           items:
             $ref: "#/components/schemas/coordinates"
 
